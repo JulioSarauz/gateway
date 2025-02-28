@@ -1,7 +1,10 @@
 eureka:
   instance:
-    preferIpAddress:false
-    non-secure-port-enable: true
-    secure-port-enabled:false
-    non-secure-port: ${server.port}
-    secure-port:443
+    secure-port-enabled: true
+    secure-port: 443
+    non-secure-port-enabled: false
+    preferIpAddress: true
+    instanceId: ${spring.application.name}:${random.value}
+    statusPageUrl: https://${HOSTNAME}:${server.port}/actuator/info
+    healthCheckUrl: https://${HOSTNAME}:${server.port}/actuator/health
+    homePageUrl: https://${HOSTNAME}:${server.port}/
