@@ -1,6 +1,6 @@
 server:
   port: ${PORT:8762}
-        
+
 ## Classic Eureka configuration
 eureka:
   instance:
@@ -15,7 +15,6 @@ eureka:
       defaultZone: ${EUREKA_URL:https://eureka-production-637b.up.railway.app/eureka}  #railway
       #defaultZone: ${EUREKA_URL:http://172.17.0.2:8761/eureka}                        #docker
       #defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}                        #docker
-      
 
 ## Enable service discovery (with Eureka)
 ## lower-case-service-id is mandatory, otherwise is retrieved in upper case from Eureka
@@ -33,11 +32,15 @@ spring:
       globalcors: ## CORS Configuration
         cors-configurations:
           '[/**]': ## For all routes
-            allowedOrigins: ${ALLOWED_ORIGINS:*} # With '*' we allow all origins. We can restrict by indicating domains or ip + port, e.g. http://localhost:3000 (where our front is, or a Vercel domain)
-            allowedHeaders: "*" ## All headers allowed
+            allowedOrigins: ${ALLOWED_ORIGINS:*} # '*' permite todos los orígenes. Para restringir, usa un dominio e.g. http://localhost:3000
             allowedMethods:
-            - POST
-      
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*"
+            allowCredentials: true
 
 ## We enable the Actuator API to be able to access <<host>>/actuator/gateway/routes
 ## We expose the routings that have been automatically detected (all)
