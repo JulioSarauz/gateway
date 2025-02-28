@@ -33,7 +33,7 @@ spring:
       globalcors: ## CORS Configuration
         cors-configurations:
           '[/**]': ## For all routes
-            allowedOrigins: ${ALLOWED_ORIGINS:https://relatos-papel-front-end.vercel.app} # With '*' we allow all origins. We can restrict by indicating domains or ip + port, e.g. http://localhost:3000 (where our front is, or a Vercel domain)
+            allowedOrigins: "*" # With '*' we allow all origins. We can restrict by indicating domains or ip + port, e.g. http://localhost:3000 (where our front is, or a Vercel domain)
             allowedHeaders: "*" ## All headers allowed
             allowedMethods:
             - POST
