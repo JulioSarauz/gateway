@@ -23,16 +23,10 @@ spring:
     name: gateway-acl
   cloud:
     gateway:
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
-      default-filters:
-        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
-      globalcors: ## CORS Configuration
-        cors-configurations:
-          '[/**]': ## For all routes
-            allowedOrigins: ${ALLOWED_ORIGINS:*} # '*' permite todos los orígenes. Para restringir, usa un dominio e.g. http://localhost:3000
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "https://relatos-papel-front-end.vercel.app" # Cambia esto según tu frontend
             allowedMethods:
               - GET
               - POST
