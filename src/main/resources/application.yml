@@ -16,6 +16,7 @@ eureka:
       #defaultZone: ${EUREKA_URL:http://172.17.0.2:8761/eureka}                        #docker
       #defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}                        #docker
 
+
 ## Enable service discovery (with Eureka)
 ## lower-case-service-id is mandatory, otherwise is retrieved in upper case from Eureka
 spring:
@@ -23,18 +24,20 @@ spring:
     name: gateway-acl
   cloud:
     gateway:
-      globalcors:
-        corsConfigurations:
-          '[/**]':
-            allowedOrigins: "https://relatos-papel-front-end.vercel.app" # Cambia esto según tu frontend
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors: ## CORS Configuration
+        cors-configurations:
+          '[/**]': ## For all routes
+            allowedOrigins: ${ALLOWED_ORIGINS:https://relatos-papel-front-end.vercel.app} # With '*' we allow all origins. We can restrict by indicating domains or ip + port, e.g. http://localhost:3000 (where our front is, or a Vercel domain)
+            allowedHeaders: "*" ## All headers allowed
             allowedMethods:
-              - GET
-              - POST
-              - PUT
-              - DELETE
-              - OPTIONS
-            allowedHeaders: "*"
-            allowCredentials: true
+            - POST
+
 
 ## We enable the Actuator API to be able to access <<host>>/actuator/gateway/routes
 ## We expose the routings that have been automatically detected (all)
